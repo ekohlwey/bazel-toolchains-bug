@@ -1,0 +1,11 @@
+load("@bazel_tools//tools/jdk:default_java_toolchain.bzl", "DEFAULT_TOOLCHAIN_CONFIGURATION", "default_java_toolchain")
+
+JAVA_LANGUAGE_LEVEL = "11"
+
+default_java_toolchain(
+    name = "java_toolchain",
+    configuration = DEFAULT_TOOLCHAIN_CONFIGURATION,
+    java_runtime = "@bazel_tools//tools/jdk:remote_jdk11",
+    source_version = JAVA_LANGUAGE_LEVEL,
+    target_version = JAVA_LANGUAGE_LEVEL,
+)

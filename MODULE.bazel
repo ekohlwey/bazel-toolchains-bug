@@ -1,0 +1,33 @@
+"""
+Check bazel version:
+
+    bazel --version
+    bazel 7.0.0
+
+Reproduce the issue with the following command:
+
+    bazel build //:java_toolchain
+
+The error message is:
+
+    Starting local Bazel server and connecting to it...
+    ERROR: Misconfigured toolchains: //:java_toolchain is declared as a toolchain but has inappropriate dependencies. Declared toolchains should be created with the 'toolchain' rule and should not have dependencies that themselves require toolchains.
+    .-> @@bazel_tools//tools/jdk:proguard_whitelister
+    |   toolchain types @@bazel_tools//tools/python:toolchain_type, @@bazel_tools//tools/cpp:toolchain_type
+    |   toolchain type @@bazel_tools//tools/cpp:toolchain_type
+    |   RegisteredToolchains
+    |   //:java_toolchain
+    `-- @@bazel_tools//tools/jdk:proguard_whitelister
+    ERROR: Analysis of target '//:java_toolchain' failed; build aborted
+    INFO: Elapsed time: 3.538s, Critical Path: 0.02s
+    INFO: 1 process: 1 internal.
+    ERROR: Build did NOT complete successfully
+"""
+
+
+bazel_dep(
+    name = "rules_java",
+    version = "6.5.2",
+)
+
+register_toolchains("//:java_toolchain")

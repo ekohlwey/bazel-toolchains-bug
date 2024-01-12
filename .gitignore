@@ -1,0 +1,4 @@
+bazel-bazel-toolchains-bug
+bazel-bin
+bazel-out
+bazel-testlogs
